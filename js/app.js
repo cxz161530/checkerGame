@@ -1,10 +1,5 @@
-//constants
-const pieceImg = {
-    redPiece: 'img/brown piece.jpeg',
-    blackPiece:'img/red piece.jpeg'
-}
-
-
+const redPiece = "brown piece.jpeg"
+const blackPiece = "red piece.jpeg"
 //classes
 
 class GameBoardSquare{
@@ -26,14 +21,15 @@ class Pieces{
 
 //functions
 // pieceInitial function used to initial all pieces in initial location
-function pieceInitial(squareId){
-    if(squareId<24 && squareId%2!==0){
-        return pieceImg.redPiece
-    }else if(squareId>40 &&squareId%2 !==0){
-        return pieceImg.blackPiece
+function pieceInitial(x, y) {
+    if (x < 3 && (x + y) % 2 !== 0) {
+        return `url('${redPiece}')`;
+    } else if (x > 4 && (x + y) % 2 !== 0) {
+        return `url('${blackPiece}')`;
     }
     return "";
 }
+
 
 //GameBoard function used to create gameBoard, squares array to hold all squares info
 //it will 1: create board in browser,2 make an array storing each square info 
@@ -50,13 +46,13 @@ function createGameBoard(row, columns){
         let squareElement = document.createElement("div")
         squareElement.classList.add("square");
         //set up a uniq id for each square
-        let squareId = x*8+y;
-        squareElement.setAttribute('id', squareId);
+        // let squareId = x*8+y;
+        squareElement.setAttribute('id', `${x}${y}`);
         //set up color
         squareElement.style.backgroundColor = square.color;
-        console.log(pieceInitial(squareId))
+
         //put Piece into it
-        squareElement.style.backgroundImage = pieceInitial(squareId);
+        squareElement.style.backgroundImage = pieceInitial(x,y)
         
 
 
@@ -78,4 +74,6 @@ function createGameBoard(row, columns){
 //1. we set up a 8*8 gameboard.
 createGameBoard(8,8);
 //2. we set up pieces red and brown
+
+
 
