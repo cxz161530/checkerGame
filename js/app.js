@@ -1,5 +1,5 @@
-const redPiece = "brown piece.jpeg"
-const blackPiece = "red piece.jpeg"
+const redPiece = "red piece.jpeg"
+const blackPiece = "brown piece.jpeg"
 let PieceCurrent=[]
 //classes
 
@@ -25,10 +25,14 @@ class Pieces{
 function createPiece(x, y) {
     if (x < 3 && (x + y) % 2 !== 0) {
         let piece = new Pieces(x, y, redPiece, true);
+        let pieceId = `piece_${x}_${y}`; 
+        piece.id = pieceId;
         PieceCurrent.push(piece);
         return piece;
     } else if (x > 4 && (x + y) % 2 !== 0) {
         let piece = new Pieces(x, y, blackPiece, true);
+        let pieceId = `piece_${x}_${y}`; 
+        piece.id = pieceId;
         PieceCurrent.push(piece);
         return piece;
     }
@@ -51,7 +55,6 @@ function createGameBoard(row, columns){
         let squareElement = document.createElement("div")
         squareElement.classList.add("square");
         //set up a uniq id for each square
-        // let squareId = x*8+y;
         squareElement.setAttribute('id', `${x}${y}`);
         //set up color
         squareElement.style.backgroundColor = square.color;
@@ -64,18 +67,51 @@ function createGameBoard(row, columns){
 
     }
     console.log(squares);
+    console.log(PieceCurrent)
 
     
 }
+function linkPieceBoard(PieceCurrent) {
+    PieceCurrent.forEach(piece => {
+        let squareElement = document.getElementById(`${piece.x}${piece.y}`);
+        if (squareElement) {
+            let pieceElement = document.createElement("img");
+            pieceElement.src = piece.color;
+            pieceElement.classList.add("piece");
+            pieceElement.draggable = true; // Enable dragging
+            pieceElement.addEventListener("dragstart", dragstartHandler); // Add dragstart event listener
+            squareElement.appendChild(pieceElement);
+        }
+    });
+}
 
+//Drag Movement reference https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
 
+function dragstartHandler(ev) {
+    // Add the target element's id to the data transfer object
+    ev.dataTransfer.setData("text/plain", ev.target.id);
+}
+
+function makeDraggable() {
+    const draggableElements = document.querySelectorAll('.piece[draggable="true"]');
+    draggableElements.forEach(draggableElement => {
+        draggableElement.addEventListener("dragstart", (event) => {
+            event.dataTransfer.setData("text/plain", event.target.id); // Set the ID of the draggable piece
+        });
+    });
+}
+
+function dragstartHandler(ev) {
+    ev.dataTransfer.dropEffect = "copy";
+  }
 
 
 
 // Excuting functions
 //1. we set up a 8*8 gameboard.
 createGameBoard(8,8);
-//2. we set up pieces red and brown
+//2. we set up pieces red and brown,put them on game board
 
-
+linkPieceBoard(PieceCurrent);
+makeDraggable(); 
 
