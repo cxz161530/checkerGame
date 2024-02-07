@@ -4,9 +4,16 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+
    
 
 }
+
+
+.background-size{
+    background-size: 30px 30px;
+}
+
 
 .game-board {
     width: 400px; 

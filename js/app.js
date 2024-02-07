@@ -1,5 +1,6 @@
 const redPiece = "brown piece.jpeg"
 const blackPiece = "red piece.jpeg"
+let PieceCurrent=[]
 //classes
 
 class GameBoardSquare{
@@ -21,13 +22,17 @@ class Pieces{
 
 //functions
 // pieceInitial function used to initial all pieces in initial location
-function pieceInitial(x, y) {
+function createPiece(x, y) {
     if (x < 3 && (x + y) % 2 !== 0) {
-        return `url('${redPiece}')`;
+        let piece = new Pieces(x, y, redPiece, true);
+        PieceCurrent.push(piece);
+        return piece;
     } else if (x > 4 && (x + y) % 2 !== 0) {
-        return `url('${blackPiece}')`;
+        let piece = new Pieces(x, y, blackPiece, true);
+        PieceCurrent.push(piece);
+        return piece;
     }
-    return "";
+    return null;
 }
 
 
@@ -51,11 +56,8 @@ function createGameBoard(row, columns){
         //set up color
         squareElement.style.backgroundColor = square.color;
 
-        //put Piece into it
-        squareElement.style.backgroundImage = pieceInitial(x,y)
-        
-
-
+        //create initial piece based on x, y
+        createPiece(x,y)
 
         gameBoard.appendChild(squareElement)
         }
