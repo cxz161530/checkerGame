@@ -3,7 +3,7 @@ const blackPiece = "greenTre.jpg"
 let PieceCurrent=[]
 const playerDisplay = document.querySelector("#display");
 let playTurn = 'red'
-playerDisplay.textContent = 'Red Turn to Move'
+playerDisplay.textContent = 'Red Triceratops Turn to Move'
 let score={red:0, black:0}
 
 
@@ -195,11 +195,11 @@ function changePlayer(){
     if (playTurn === "red"){
         reverseId();
         playTurn = "black"
-        playerDisplay.textContent = 'Black Turn to Move'
+        playerDisplay.textContent = 'Green Terx Turn to Move'
     } else{
         revertId()
         playTurn = "red"
-        playerDisplay.textContent = "Red Turn to Move"
+        playerDisplay.textContent = "Red Triceratops Turn to Move"
     }
     determineWinner()
 }
@@ -230,7 +230,7 @@ function determineWinner() {
         alert("Triceratops wins!");
         endGame();
     } else if (score.black >= 12) {
-        alert("Trex wins!");
+        alert("Terx wins!");
         endGame();
     }
 }

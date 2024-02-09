@@ -1,7 +1,7 @@
 <h1>Checkers Game</h1>
 <p><strong>Background</strong>: The oldest form of checkers was played around 3,000 B.C.E. It was found by archeologists in an ancient city called Ur in Iraq. Those who have studied the history of checkers have also found a game called Alquerque. It was played in ancient Egypt as far back as 1,400 B.C.E.</p>
 
-<img src="image-1.png" alt="Checkers Game" width="400" height="400">
+<img src="screenInitial.png" alt="Checkers Game" width="400" height="400">
 
 <h2>Technologies Used</h2>
 <p>HTML, JavaScript, CSS</p>
