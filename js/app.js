@@ -150,6 +150,10 @@ function dragDrop(e){
         return
         }
     if(valid){
+        //make the scorebox update
+        document.getElementById('redScore').textContent = 'Red Score: ' + score.red;
+        document.getElementById('blackScore').textContent = 'Black Score: ' + score.black;
+        
         //attach piece in new square location
         e.target.append(draggedELement)
         

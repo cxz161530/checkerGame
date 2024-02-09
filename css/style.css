@@ -43,3 +43,30 @@ path{
     margin-top: 20px;
 }
 
+#scoreBox {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#redScore, #blackScore {
+    font-size: 18px;
+}
+
+#redScore {
+    color: red;
+}
+
+#blackScore {
+    color: black;
+}
+body{
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+
+}
