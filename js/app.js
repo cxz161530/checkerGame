@@ -1,5 +1,5 @@
-const redPiece = "red piece.jpeg"
-const blackPiece = "brown piece.jpeg"
+const redPiece = "redTri.jpg"
+const blackPiece = "greenTre.jpg"
 let PieceCurrent=[]
 const playerDisplay = document.querySelector("#display");
 let playTurn = 'red'
@@ -90,9 +90,9 @@ function linkPieceBoard(PieceCurrent) {
             pieceElement.src = piece.color;
             
             //give Id to piece element
-            if (piece.color === "red piece.jpeg") {
+            if (piece.color === "redTri.jpg") {
                 pieceElement.id = "red";
-            } else if (piece.color === "brown piece.jpeg") {
+            } else if (piece.color === "greenTre.jpg") {
                 pieceElement.id = "black";
             }
             pieceElement.draggable = true
@@ -227,10 +227,10 @@ function getOppoColor(){
 
 function determineWinner() {
     if (score.red >= 12) {
-        alert("Red wins!");
+        alert("Triceratops wins!");
         endGame();
     } else if (score.black >= 12) {
-        alert("Black wins!");
+        alert("Trex wins!");
         endGame();
     }
 }

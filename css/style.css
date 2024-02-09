@@ -11,12 +11,13 @@
 }
 
 .piece {
-    max-width: 100%;
-    max-height: 100%;
+    width: 100%;
+    height: 100%;
     position: relative;
-    border-radius: 90%;
+    border-radius: 50%;
     z-index: 10; 
     /*make sure we drag is piece, not square*/
+    box-sizing: border-box;
 }
 path{
     position: relative;
