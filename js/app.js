@@ -1,15 +1,17 @@
-const redPiece = "redTri.jpg"
-const blackPiece = "greenTre.jpg"
-let PieceCurrent=[]
-const playerDisplay = document.querySelector("#display");
-let playTurn = 'red'
-playerDisplay.textContent = 'Red Triceratops Turn to Move'
-let score={red:0, black:0}
+/*----- constants -----*/
+const redPiece = "redTri.jpg"//piece pictures
+const blackPiece = "greenTre.jpg"//piece pictures
+let PieceCurrent=[]//empty array used to create pieces
+const playerDisplay = document.querySelector("#display");//used to create gameboard
+//used in second part, movement and winning logic
+let playTurn = 'red' //track whose turn
+playerDisplay.textContent = 'Red Triceratops Turn to Move'//display remind player who should move
+let score={red:0, black:0}//scoreboard
 
 
 
 
-//classes
+/*----- classes-----*/
 
 class GameBoardSquare{
     constructor(x,y,color){
@@ -28,7 +30,7 @@ class Pieces{
     } 
     }
 
-//functions
+/*----- functions----*/
 // pieceInitial function used to initial all pieces in initial location
 function createPiece(x, y) {
     if (x < 3 && (x + y) % 2 !== 0) {
@@ -69,17 +71,11 @@ function createGameBoard(row, columns){
 
         //create initial piece based on x, y
         createPiece(x,y)
-        
-
         gameBoard.appendChild(squareElement)
         }
-        
-
     }
     console.log(squares);
     console.log(PieceCurrent)
-
-    
 }
 function linkPieceBoard(PieceCurrent) {
     PieceCurrent.forEach(piece => {
@@ -103,17 +99,16 @@ function linkPieceBoard(PieceCurrent) {
     });
 }
 
-// Excuting functions
+/*----- Executing Function-----*/
 //1. we set up a 8*8 gameboard.
 createGameBoard(8,8);
-//2. we set up pieces red and brown,put them on game board
-
+//2. we set up pieces tri and Trex ,put them on game board using attach piece class on board class
 linkPieceBoard(PieceCurrent);
+
 // dragPiece(square)
+//3. Drag and drop 
 
 const allSquares = document.querySelectorAll( ".square")
-console.log(allSquares)
-
 allSquares.forEach(square =>{
     square.addEventListener('dragstart', dragStart)
     square.addEventListener('dragover', dragOver)
@@ -133,23 +128,14 @@ function dragOver(e){
 
 function dragDrop(e){
     e.stopPropagation()
-    console.log(draggedELement)
-    const valid = checkIfValid(e.target)
-    console.log(score)
-    const winner = determineWinner();
-
-    
-    
-
+    const valid = checkIfValid(e.target)//call function check valid move
+    const winner = determineWinner();//call function check if winner comes
     //to judge if the square is empty or contain piece
     const taken= e.target.classList.contains('piece') 
-    console.log(taken)
-    console.log(valid)
- 
-    if(taken){
+    if(taken){ //if target has piece, canot move
         return
         }
-    if(valid){
+    if(valid){ //if its a valid move
         //make the scorebox update
         document.getElementById('redScore').textContent = 'Red Score: ' + score.red;
         document.getElementById('blackScore').textContent = 'Black Score: ' + score.black;
@@ -163,7 +149,7 @@ function dragDrop(e){
    
     }
     
-//get the start and target position, also give color piece]
+//get the start and target position, also give color piece
 function checkIfValid(target){
     const startId =Number(startPositionId);
     const targetId = Number(target.getAttribute('id'))
@@ -194,7 +180,7 @@ function checkIfValid(target){
     }
 }
 
-
+//change id after each play finish, make the id align to manuplate
 function changePlayer(){
     if (playTurn === "red"){
         reverseId();
@@ -207,7 +193,7 @@ function changePlayer(){
     }
     determineWinner()
 }
-
+// change id function
 function reverseId(){
     const allSquares = document.querySelectorAll(".square")
     allSquares.forEach((square,i) => 
@@ -221,15 +207,12 @@ function revertId(){
 
 }
 
-function countPiece(square,color){
-    square.forEach()
-}
 
-function getOppoColor(){
+function getOppoColor(){//making sure we always have oppo color, used to decide eat behavior valid
     return (playTurn === 'black') ? 'red' : 'black';
 }
 
-function determineWinner() {
+function determineWinner() {//use score to check whether winner happen
     if (score.red >= 12) {
         alert("Triceratops wins!");
         endGame();
