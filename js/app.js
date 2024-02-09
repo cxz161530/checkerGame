@@ -2,8 +2,13 @@ const redPiece = "red piece.jpeg"
 const blackPiece = "brown piece.jpeg"
 let PieceCurrent=[]
 const playerDisplay = document.querySelector("#display");
-let playTurn = 'black'
-playerDisplay.textContent = 'black'
+let playTurn = 'red'
+playerDisplay.textContent = 'red'
+let score={red:0, black:0}
+
+
+
+
 //classes
 
 class GameBoardSquare{
@@ -129,24 +134,28 @@ function dragOver(e){
 function dragDrop(e){
     e.stopPropagation()
     console.log(draggedELement)
-    const oppoGo = playTurn === 'red'? 'black' :'red'
-    const correctGo = e.target.querySelector("img[id = 'playerTurn']")
     const valid = checkIfValid(e.target)
+    console.log(score)
+    const winner = determineWinner();
+
+    
     
 
     //to judge if the square is empty or contain piece
     const taken= e.target.classList.contains('piece') 
     console.log(taken)
     console.log(valid)
+ 
     if(taken){
         return
         }
     if(valid){
         //attach piece in new square location
         e.target.append(draggedELement)
+        
         changePlayer()
-        return
         }
+    
    
     }
     
@@ -155,28 +164,52 @@ function checkIfValid(target){
     const startId =Number(startPositionId);
     const targetId = Number(target.getAttribute('id'))
     const piece = draggedELement.id
+    const oppoGo = getOppoColor()
+    
+    console.log('draggedELement.id',draggedELement.id)
     console.log('startId',startId)
     console.log('targetId',targetId)
     console.log('pieceId',piece)
-    if ((startId + 14 === targetId && document.getElementById(startId+7)  ) || 
-    (startId + 18 === targetId) || 
-    (startId+7 === targetId) ||
-        (startId+9 === targetId)
-    ) {
-    return true;
-}}
+    console.log('oppoGo',oppoGo)
+    console.log('playTurn',playTurn)
+    console.log('redScre',score.red)
+    const leftColor = document.getElementById(startId+7).firstChild?.id
+    const rightColor = document.getElementById(startId+9).firstChild?.id
+
+    if ((startId + 14 === targetId &&leftColor === oppoGo)) {
+        document.getElementById(startId+7).firstChild.remove();   
+        if(playTurn === "red"){
+            score.red +=1;
+        }else if(playTurn ==="black"){
+            score.black +=1;
+        };
+        return true;}
+    if ((startId + 18 === targetId&& rightColor === oppoGo)) {
+        document.getElementById(startId+9).firstChild.remove();
+        if(playTurn === "red"){
+            score.red +=1;
+        }else if(playTurn ==="black"){
+            score.black +=1;
+        };
+        return true;}
+    if ((startId+7 === targetId) ||
+    (startId+9 === targetId)){
+        return true;
+    }
+}
 
 
 function changePlayer(){
-    if (playTurn === "black"){
+    if (playTurn === "red"){
         reverseId();
-        playTurn = "red"
-        playerDisplay.textContent = 'red'
+        playTurn = "black"
+        playerDisplay.textContent = 'black'
     } else{
         revertId()
-        playTurn = "black"
-        playerDisplay.textContent = "black"
+        playTurn = "red"
+        playerDisplay.textContent = "red"
     }
+    determineWinner()
 }
 
 function reverseId(){
@@ -190,4 +223,22 @@ function revertId(){
     allSquares.forEach((square,i) => 
         square.setAttribute('id',i))
 
+}
+
+function countPiece(square,color){
+    square.forEach()
+}
+
+function getOppoColor(){
+    return (playTurn === 'black') ? 'red' : 'black';
+}
+
+function determineWinner() {
+    if (score.red >= 12) {
+        alert("Red wins!");
+        endGame();
+    } else if (score.black >= 12) {
+        alert("Black wins!");
+        endGame();
+    }
 }
