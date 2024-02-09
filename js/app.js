@@ -3,7 +3,7 @@ const blackPiece = "brown piece.jpeg"
 let PieceCurrent=[]
 const playerDisplay = document.querySelector("#display");
 let playTurn = 'red'
-playerDisplay.textContent = 'red'
+playerDisplay.textContent = 'Red Turn to Move'
 let score={red:0, black:0}
 
 
@@ -165,14 +165,6 @@ function checkIfValid(target){
     const targetId = Number(target.getAttribute('id'))
     const piece = draggedELement.id
     const oppoGo = getOppoColor()
-    
-    console.log('draggedELement.id',draggedELement.id)
-    console.log('startId',startId)
-    console.log('targetId',targetId)
-    console.log('pieceId',piece)
-    console.log('oppoGo',oppoGo)
-    console.log('playTurn',playTurn)
-    console.log('redScre',score.red)
     const leftColor = document.getElementById(startId+7).firstChild?.id
     const rightColor = document.getElementById(startId+9).firstChild?.id
 
@@ -203,11 +195,11 @@ function changePlayer(){
     if (playTurn === "red"){
         reverseId();
         playTurn = "black"
-        playerDisplay.textContent = 'black'
+        playerDisplay.textContent = 'Black Turn to Move'
     } else{
         revertId()
         playTurn = "red"
-        playerDisplay.textContent = "red"
+        playerDisplay.textContent = "Red Turn to Move"
     }
     determineWinner()
 }
